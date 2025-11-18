@@ -7,14 +7,15 @@ def get_data():
     data = pd.read_csv('../data/train.csv')
     #2.划分数据集
     X = data.drop('label', axis=1)
-    Y = data['label']
-    x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+    y = data['label']
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
     #3.特征工程：归一化
     scaler = MinMaxScaler()
     x_train = scaler.fit_transform(x_train)
     x_test = scaler.transform(x_test)
     #4.将数据转成ndarray
-    y_test = y_test.values
     y_train = y_train.values
+    y_test = y_test.values
 
-    return x_train, y_train, x_test, y_test
+
+    return x_train, x_test, y_train, y_test

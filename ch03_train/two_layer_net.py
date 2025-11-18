@@ -11,12 +11,12 @@ class TwoLayerNet:
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
     #前向传播（预测）
-    def forward(self, x):
-        w1,w2 = self.params['W1'],self.params['W2']
+    def forward(self, X):
+        W1,W2 = self.params['W1'],self.params['W2']
         b1,b2 = self.params['b1'],self.params['b2']
-        a1 = x @ w1 + b1
+        a1 = X @ W1 + b1
         z1 = sigmoid(a1)
-        a2 = x @ w2 + b2
+        a2 = z1 @ W2 + b2
         y = softmax(a2)
         return y
     #计算损失
@@ -26,14 +26,14 @@ class TwoLayerNet:
         return loss_value
     #计算准确度
     def accuracy(self, x, t):
-        y_pred = self.forward(x)  #预测概率
+        y_proba = self.forward(x)  #预测概率
         # 根据最大概率得到预测的分类号
-        y = np.argmax(y_pred, axis=1)
+        y = np.argmax(y_proba, axis=1)
         #与正确标签对比，得到准确率
         accuracy = np.sum(y == t) / x.shape[0]
         return accuracy
     #计算梯度
-    def numerical_gradient(self, t, x):
+    def numerical_gradient(self, x, t):
         #定义目标函数
         loss_f = lambda w: self.loss(x, t)
         #对每个参数，使用数值微分方法计算梯度
