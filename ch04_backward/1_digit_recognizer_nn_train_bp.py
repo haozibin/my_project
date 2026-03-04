@@ -12,7 +12,7 @@ network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 #3.设置超参数
 learning_rate = 0.1
 batch_size = 100
-num_iters = 10
+num_iters = 30
 
 train_size = x_train.shape[0]
 iter_per_epoch = np.ceil(train_size/batch_size)
